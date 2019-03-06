@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Container, Content, Text, Card, Header, Body, Button, Title, CardItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { createQuestion } from '../reducers/questionsReducer';
 
-export default class MainView extends Component {
+class AddView extends Component {
   render(){
     return(
       <Container>
         <Header>
           <Body>
-            <Title>Truth or Dare</Title>
+            <Title>Add new question/task</Title>
           </Body>
         </Header>
         <Content padder>
@@ -21,11 +23,13 @@ export default class MainView extends Component {
               </Body>
             </CardItem>
           </Card>
-          <Button dark bordered style={{ alignSelf: 'center', margin: 30}} onPress= {() => {Actions.addFormPage(); }}>
-            <Text>Go to Page 2</Text>
+          <Button dark bordered onPress= {() => {Actions.pop(); }}>
+            <Text>Go to Page 1</Text>
           </Button>
         </Content>
       </Container>
-  );
+    );
   }
 }
+
+export default connect( null, { createObservation })(AddView);
