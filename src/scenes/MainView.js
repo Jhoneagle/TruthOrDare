@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { Container, Content, Text, Card, Header, Body, Button, Title, CardItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { deleteQuestion } from '../reducers/questionsReducer';
+import { deleteQuestion, initializeQuestions } from '../reducers/QuestionsReducer';
 
-export default class MainView extends Component {
+class MainView extends Component {
+  componentDidMount() {
+    this.props.initializeQuestions()
+  }
+  
   render(){
     return(
       <Container>
@@ -20,7 +24,7 @@ export default class MainView extends Component {
                 <Text>
                   This is Page One, Press button to go to page two.
                   
-                  There is only {this.props.questions.length}.
+                  There is only {this.props.questions.length} questions.
                 </Text>
               </Body>
             </CardItem>
@@ -40,4 +44,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { deleteQuestion })(MainView);
+export default connect(mapStateToProps, { deleteQuestion, initializeQuestions })(MainView);

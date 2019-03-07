@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, Text, Card, Header, Body, Button, Title, CardItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { createQuestion } from '../reducers/questionsReducer';
+import { createQuestion } from '../reducers/QuestionsReducer';
 
 class AddView extends Component {
   render(){
@@ -18,7 +18,7 @@ class AddView extends Component {
             <CardItem>
               <Body>
                 <Text>
-                  This is Page One, Press button to go to page two
+                  This is Page Two, Press button to go to page one.
                 </Text>
               </Body>
             </CardItem>
@@ -32,4 +32,4 @@ class AddView extends Component {
   }
 }
 
-export default connect( null, { createObservation })(AddView);
+export default connect( null, { createQuestion })(AddView);

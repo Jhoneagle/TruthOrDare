@@ -1,4 +1,4 @@
-import questions from '../services/QuestionService'
+import questions from '../services/QuestionService';
 
 const initialState = [];
 
