@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Card, Header, Body, Button, Title, CardItem } from 'native-base';
+import { Container, Content, Text, Left, Header, Body, Button, Title, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { deleteQuestion, initializeQuestions } from '../reducers/QuestionsReducer';
@@ -13,25 +13,22 @@ class MainView extends Component {
     return(
       <Container>
         <Header>
+          <Left>
+            <Text> </Text>
+          </Left>
           <Body>
             <Title>Truth or Dare</Title>
           </Body>
+          <Right>
+            <Button transparent style={{ alignSelf: 'center', margin: 30}} onPress= {() => {Actions.addFormPage(); }}>
+              <Text>+</Text>
+            </Button>
+          </Right>
         </Header>
         <Content padder>
-          <Card>
-            <CardItem>
-              <Body>
-                <Text>
-                  This is Page One, Press button to go to page two.
-                  
-                  There is only {this.props.questions.length} questions.
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
-          <Button dark bordered style={{ alignSelf: 'center', margin: 30}} onPress= {() => {Actions.addFormPage(); }}>
-            <Text>Go to Page 2</Text>
-          </Button>
+          <Text>
+            list
+          </Text>
         </Content>
       </Container>
   );
