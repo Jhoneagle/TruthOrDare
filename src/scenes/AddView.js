@@ -3,6 +3,7 @@ import { Container, Content, Text, Left, Header, Body, Button, Title, Right, For
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { createQuestion } from '../reducers/QuestionsReducer';
+import { StyleSheet } from 'react-native';
 
 class AddView extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class AddView extends Component {
     };
   }
   
-  onValueChange2(value: string) {
+  onValueChange(value: string) {
     this.setState({
       selected: value
     });
@@ -40,21 +41,24 @@ class AddView extends Component {
               <Label>Question/task</Label>
               <Input />
             </Item>
-            <Item picker last>
+            <Item picker>
               <Picker
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
-                style={{ width: undefined }}
+                style={ styles.picker }
                 placeholder="Select type: "
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
                 selectedValue={this.state.selected}
-                onValueChange={this.onValueChange2.bind(this)}
+                onValueChange={this.onValueChange.bind(this)}
               >
                 <Picker.Item label="Truth" value="truth" />
                 <Picker.Item label="Dare" value="dare" />
               </Picker>
             </Item>
+            <item last>
+              <CheckBox checked={true} />
+            </item>
           </Form>
           <Button full success>
             <Text>Add</Text>
@@ -64,5 +68,11 @@ class AddView extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  picker: {
+    width: undefined,
+  },
+});
 
 export default connect( null, { createQuestion })(AddView);

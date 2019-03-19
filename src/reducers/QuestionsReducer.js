@@ -5,7 +5,7 @@ const initialState = [];
 const questionsReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'CREATE_QUESTION':
-      return state.concat(action.observation);
+      return state.concat(action.newOne);
     case 'REMOVE_QUESTION':
       return state.filter(b => b.id !== action.key);
     case 'GET_QUESTIONS':
@@ -28,9 +28,11 @@ export const initializeQuestions = () => {
 
 export const createQuestion = (data) => {
   return async (dispatch) => {
+    const newOne = await questions.create(data);
+    
     dispatch({
       type: 'CREATE_QUESTION',
-      observation
+      newOne
     })
   }
 };
