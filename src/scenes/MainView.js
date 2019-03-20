@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Left, Header, Body, Button, Title, Right } from 'native-base';
+import { Container, Content, Text, Left, Header, Body, Button, Title, Right, Card, CardItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { deleteQuestion, initializeQuestions } from '../reducers/QuestionsReducer';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 class MainView extends Component {
-  componentDidMount() {
+  constructor (props) {
+    super(props);
+    this.state = {
+      text: 'Press either truth or dare to begin...'
+    };
+  }
+  
+  componentWillMount() {
     this.props.initializeQuestions()
   }
+  
+  nextOne = (type) => {
+    return () => {
+      if (this.props.questions.length > 1) {
+        let random = Math.floor(Math.random() * (this.props.questions.length - 1));
+        let isokay = this.props.questions[random].type;
+  
+        while(isokay !== type) {
+          random = Math.floor(Math.random() * (this.props.questions.length - 1));
+          isokay = this.props.questions[random].type;
+        }
+  
+        this.setState({
+          text: this.props.questions[random].content
+        })
+      }
+    }
+  };
   
   render(){
     return(
@@ -27,31 +52,29 @@ class MainView extends Component {
           </Right>
         </Header>
         <Content padder>
-          <Card>
+          <Card style={ styles.data }>
             <CardItem>
               <Body>
-              <Text>
-                //Your text here
-              </Text>
+                <Text style={ styles.content }>
+                  { this.state.text }
+                </Text>
               </Body>
             </CardItem>
-            <View style={ styles.select_buttons }>
-              <CardItem button onPress={() => alert("This is Card Body one")}>
-                <Body>
-                <Text>
-                  Click on any carditem one
-                </Text>
-                </Body>
-              </CardItem>
-              <CardItem button onPress={() => alert("This is Card Body two")}>
-                <Body>
-                <Text>
-                  Click on any carditem two
-                </Text>
-                </Body>
-              </CardItem>
-            </View>
           </Card>
+          <Button style={ styles.select_buttons } onPress={this.nextOne('dare')}>
+            <Body>
+              <Text style={ styles.selectButton_text }>
+                TRUTH!
+              </Text>
+            </Body>
+          </Button>
+          <Button style={ styles.select_buttons } onPress={this.nextOne('truth')}>
+            <Body>
+              <Text style={ styles.selectButton_text }>
+                DARE!
+              </Text>
+            </Body>
+          </Button>
         </Content>
       </Container>
   );
@@ -61,10 +84,21 @@ class MainView extends Component {
 const styles = StyleSheet.create({
   navigationButton: {
     alignSelf: 'center',
-    margin: 30
+    margin: 30,
   },
   select_buttons: {
-    flexDirection: "row",
+    margin: 1,
+    backgroundColor: 'black',
+  },
+  selectButton_text: {
+    color: 'white',
+  },
+  data: {
+    height: 150,
+    margin: 1,
+  },
+  content: {
+    alignSelf: 'center',
   },
 });
 
