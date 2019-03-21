@@ -13,23 +13,20 @@ class MainView extends Component {
     };
   }
   
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeQuestions()
   }
   
   nextOne = (type) => {
     return () => {
-      if (this.props.questions.length > 1) {
-        let random = Math.floor(Math.random() * (this.props.questions.length - 1));
-        let isokay = this.props.questions[random].type;
-  
-        while(isokay !== type) {
-          random = Math.floor(Math.random() * (this.props.questions.length - 1));
-          isokay = this.props.questions[random].type;
-        }
-  
+      const array = this.props.questions.filter(b => b.type === type);
+      
+      if (array.length > 1) {
+        const random = Math.floor(Math.random() * (array.length - 1));
+        const reult = array[random];
+        
         this.setState({
-          text: this.props.questions[random].content
+          text: reult.content
         })
       }
     }
@@ -61,14 +58,14 @@ class MainView extends Component {
               </Body>
             </CardItem>
           </Card>
-          <Button style={ styles.select_buttons } onPress={this.nextOne('dare')}>
+          <Button style={ styles.select_buttons } onPress={this.nextOne('truth')}>
             <Body>
               <Text style={ styles.selectButton_text }>
                 TRUTH!
               </Text>
             </Body>
           </Button>
-          <Button style={ styles.select_buttons } onPress={this.nextOne('truth')}>
+          <Button style={ styles.select_buttons } onPress={this.nextOne('dare')}>
             <Body>
               <Text style={ styles.selectButton_text }>
                 DARE!

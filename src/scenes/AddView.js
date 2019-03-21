@@ -73,8 +73,8 @@ class AddView extends Component {
               </Picker>
             </Item>
             <Item last style={ styles.checker } onPress={() => {this.setState({check: !this.state.check }); }}>
-              <Label> Save globally </Label>
-              <CheckBox checked={ this.state.check } />
+              <Label> Save only temporarily. </Label>
+              <CheckBox checked={ this.state.check } onPress={() => {this.setState({check: !this.state.check }); }}/>
             </Item>
           </Form>
           <Button full success style={ styles.submit } onPress={this.create()}>

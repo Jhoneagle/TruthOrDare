@@ -9,7 +9,7 @@ const questionsReducer = (state = initialState, action) => {
     case 'REMOVE_QUESTION':
       return state.filter(b => b.id !== action.key);
     case 'GET_QUESTIONS':
-      return action.questions;
+      return action.data;
     default:
       return state;
   }
@@ -17,20 +17,20 @@ const questionsReducer = (state = initialState, action) => {
 
 export const initializeQuestions = () => {
   return async (dispatch) => {
-    const questions = await questions.getAll();
+    const data = await questions.getAll();
     
     dispatch({
       type: 'GET_QUESTIONS',
-      questions
+      data
     })
   }
 };
 
-export const createQuestion = (data, ckeck) => {
+export const createQuestion = (data, check) => {
   return async (dispatch) => {
     let newOne;
     
-    if (check === true) {
+    if (check === false) {
       newOne = await questions.create(data);
     } else {
       newOne = data;
